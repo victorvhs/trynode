@@ -1,0 +1,14 @@
+{
+  "name": "notes-app",
+  "version": "1.0.0",
+  "description": "App de notes",
+  "main": "aula01.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Vhreis",
+  "license": "ISC",
+  "dependencies": {
+    "validator": "^12.1.0"
+  }
+}
