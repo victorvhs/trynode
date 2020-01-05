@@ -11,8 +11,23 @@ yargs.version('1.25')
 yargs.command({
     command:'add',
     describe:'Add a new note',
-    handler: function (){
-        console.log(chalk.bgGray("Add new notes"))
+    builder:{
+        title:{
+            describe:'Note Title',
+            demandOption:true,
+            type:'string'
+        },
+        body:{
+            describe:'The note',
+            demandOption:true,
+            type:'string'
+        }
+
+    },
+    handler: function (argv){
+        console.log('Title: '+ argv.title)
+        console.log('Note: '+argv.body)
+
     }
 })
 //Create a remove command
@@ -33,6 +48,7 @@ yargs.command({
         console.log('This is all yours notes')
     }
 })
+
 //Create a read command
 yargs.command({
     command:'read',
@@ -41,4 +57,5 @@ yargs.command({
         console.log('Read a note ...')
     }
 })
-console.log(yargs.argv)
+
+yargs.parse()
