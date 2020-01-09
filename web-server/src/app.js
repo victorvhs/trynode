@@ -4,18 +4,15 @@ const path = require('path')
 const public = path.join(__dirname,'../public')
 const app = express()
 
+app.set('view engine','hbs')
 app.use(express.static(public))
 
-
-// app.get('/help',(req,res) =>{
-//     res.send({
-//         name: 'Victor',
-//         age: 27
-//     })
-// })
-// app.get('/about',(req,res) =>{
-//     res.send('<h1>About Page</h1>')
-// })
+app.get('',(req,res) =>{
+    res.render('index',{
+        title:'Weather App',
+        name: 'EUUUU'
+    })
+})
 
 app.get('/weather', (req,res) =>{
     res.send({
