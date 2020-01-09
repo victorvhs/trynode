@@ -4,14 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+     <link rel="icon" href="/img/weather.png">
     <link rel="stylesheet" href="css/styles.css">
-    <title>Document</title>
+    <title>Help</title>
 </head>
 <body>
 
-    {{>header}}
-    <p>{{msg}}</p>
-    <p>Today is {{day}}</p>
+    <div class="main-content">
+        {{>header}}
+        <p>{{msg}}</p>
+        <p>Today is {{day}}</p>
+    </div>
     {{>footer}}
 </body>
 </html>
