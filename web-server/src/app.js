@@ -40,11 +40,30 @@ app.get('/help', (req,res) => {
        })
 
 })
-app.get('/weather', (req,res) =>{
+app.get('/products', (req,res) =>{
+    if(!req.query.search) {
+        return res.send({
+            error:'You must provaide a search term'
+        })
+
+    }
+    console.log(req.query.search)
     res.send({
-        forecast : 'CHUVA FORTE',
-        location: 'Goiania'
+        products: []
     })
+})
+
+app.get('/weather', (req,res) =>{
+    if(!req.query.address){
+        return res.send({
+            error:'You must provaide a address'
+        })
+    }
+    res.send({
+        address: req.query.address
+    })
+
+   
 })
 
 app.get('/help/*',(req,res)=>{
