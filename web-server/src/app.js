@@ -14,6 +14,20 @@ app.get('',(req,res) =>{
     })
 })
 
+app.get('/about', (req,res) =>{
+    res.render('about',{
+        title: 'About us',
+        name : 'Victor VhS'
+    })
+})
+app.get('/help', (req,res) => {
+    res.render('help',{
+        title: 'Help is here',
+        msg: 'We can help you',
+        day : Date()
+    })
+
+})
 app.get('/weather', (req,res) =>{
     res.send({
         forecast : 'CHUVA FORTE',
