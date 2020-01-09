@@ -17,6 +17,7 @@ hbs.registerPartials(partialsPath)
 //Setup static directory
 app.use(express.static(public))
 
+const name = 'Victor VhS'
 app.get('',(req,res) =>{
     res.render('index',{
         title:'Weather App',
@@ -27,7 +28,7 @@ app.get('',(req,res) =>{
 app.get('/about', (req,res) =>{
     res.render('about',{
         title: 'About us',
-        name : 'Victor VhS'
+        name: name
     })
 })
 app.get('/help', (req,res) => {
@@ -35,7 +36,7 @@ app.get('/help', (req,res) => {
         title: 'Help is here',
         msg: 'We can help you',
         day : Date(),
-        name : 'Victor VhS'
+        name: name
        })
 
 })
@@ -46,6 +47,22 @@ app.get('/weather', (req,res) =>{
     })
 })
 
+app.get('/help/*',(req,res)=>{
+    res.status(404).render('404',{
+        title:'404',
+        msg: 'Help article not found',
+        name: name
+    })
+
+})
+app.get('*', (req,res) => {
+    res.status(404).render('404',{
+        title: '404',
+        msg:'Page Not found',
+        name: name
+    })
+
+})
 app.listen(3000,() =>{
     console.log('server is Up on port 3000')
 })
