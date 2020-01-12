@@ -67,15 +67,16 @@ app.get('/weather', (req,res) =>{
 
         if(error)return res.status(500).send({error})
 
-        forecast(latitude,longitude, (error,{temperature,sumary,precipProbability} = {})=>{
+        forecast(latitude,longitude, (error,{temperature,sumary,precipProbability,icon} = {})=>{
 
             if(error)return res.status(500).send({error})
-            
+            console.log(icon)
             return res.send({
                 location,
                 sumary,
                 temperature,
-                precipProbability
+                precipProbability,
+                icon
             })
         })
     })
