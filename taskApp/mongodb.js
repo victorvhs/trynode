@@ -91,14 +91,25 @@ MongoClient.connect(connectionURL, {useNewUrlParser:true,useUnifiedTopology: tru
 
     // })
 
-    db.collection('task').updateMany({
-        completed:false},{
-            $set:{
-                completed:true
-            }
-        }).then((result)=>{
-            console.log(result)
-        }).catch((error)=>{
-            console.log(error)
-        })
+    // db.collection('task').updateMany({
+    //     completed:false},{
+    //         $set:{
+    //             completed:true
+    //         }
+    //     }).then((result)=>{
+    //         console.log(result)
+    //     }).catch((error)=>{
+    //         console.log(error)
+    //     })
+    db.collection('users').deleteMany({age:28}).then((result)=>{
+        console.log(result)
+    }).catch((error)=>{
+        console.log(error)
+    })
+    db.collection('task').deleteOne({description:'Read one chapter'}).
+    then((result)=>{
+        console.log(result.deletedCount)
+    }).catch((error)=>{
+        console.log(error)
+    })
 })
