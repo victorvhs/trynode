@@ -1,6 +1,6 @@
 const doWorkPromise = new Promise ((resolve,reject) =>{
     setTimeout(()=>{
-        //resolve([1,4,7])
+        resolve([1,4,7])
         reject('Deu Ruim')
     },2000)
 })
