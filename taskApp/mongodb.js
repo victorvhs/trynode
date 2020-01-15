@@ -61,10 +61,21 @@ MongoClient.connect(connectionURL, {useNewUrlParser:true,useUnifiedTopology: tru
     //     })
 
 
-    db.collection('users').findOne({name:'GEM'}, (error,user) =>{
-        if(error) return console.log("erro: "+ error)
-        console.log(user)
+    // db.collection('users').findOne({name:'GEM'}, (error,user) =>{
+    //     if(error) return console.log("erro: "+ error)
+    //     console.log(user)
 
+    // })
+
+    db.collection('task').findOne({_id: new ObjectID('5e1d0f3091ee360a330e7c39')},
+    (error,result)=>{
+        if(error) return console.log('Erro: '+error)
+        console.log(result)
+
+    })
+    db.collection('task').find({completed:true}).toArray((error,users) =>{
+        if (error) return console.log(error)
+        console.log(users)
     })
 
 })
