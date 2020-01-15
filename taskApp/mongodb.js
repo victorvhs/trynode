@@ -67,15 +67,38 @@ MongoClient.connect(connectionURL, {useNewUrlParser:true,useUnifiedTopology: tru
 
     // })
 
-    db.collection('task').findOne({_id: new ObjectID('5e1d0f3091ee360a330e7c39')},
-    (error,result)=>{
-        if(error) return console.log('Erro: '+error)
-        console.log(result)
+    // db.collection('task').findOne({_id: new ObjectID('5e1d0f3091ee360a330e7c39')},
+    // (error,result)=>{
+    //     if(error) return console.log('Erro: '+error)
+    //     console.log(result)
 
-    })
-    db.collection('task').find({completed:true}).toArray((error,users) =>{
-        if (error) return console.log(error)
-        console.log(users)
-    })
+    // })
+    // db.collection('task').find({completed:true}).toArray((error,users) =>{
+    //     if (error) return console.log(error)
+    //     console.log(users)
+    // })
 
+    // db.collection('users').updateOne({
+    //     _id: new ObjectID('5e1d09a99eaf3604c3221128')
+    // },{
+    //     $set:{
+    //         name:'Vhs'
+    //     }
+    // }).then((result) =>{
+    //     console.log(result)
+    // }).catch((error) =>{
+    //     console.log(error)
+
+    // })
+
+    db.collection('task').updateMany({
+        completed:false},{
+            $set:{
+                completed:true
+            }
+        }).then((result)=>{
+            console.log(result)
+        }).catch((error)=>{
+            console.log(error)
+        })
 })
