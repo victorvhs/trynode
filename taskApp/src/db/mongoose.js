@@ -10,11 +10,14 @@ mongoose.connect('mongodb://127.0.0.1:27017/task-api',{
 const User = mongoose.model('User',{
     name :{
         type:String,
-        required: true
+        required: true,
+        trim: true
     },
     email:{
         type:String,
         required:true,
+        trim: true,
+        lowercase: true,
         validate(value){
             if(!validator.isEmail(value)){
                 throw new Error('Email is invalid')
@@ -22,9 +25,20 @@ const User = mongoose.model('User',{
                 console.log('ok')
             }
         }
+    }
+    ,
+    password:{
+        type: String,
+        required:true,
+        trim:true,
+        minlength: [6,'Must have 6 or more characters'],
+        validate(value){
+            if((value.toLowerCase()).includes('password')){throw new Error('Your password is Weak')}
+        }
     },
     age :{
         type: Number,
+        default : 0,
         validate(value){
             if(value <0) {
                 throw new Error('Age must be positive number')
@@ -36,41 +50,42 @@ const User = mongoose.model('User',{
 const Task = mongoose.model('Task',{
     description:{
         type:String,
-        require: true
+        required: true,
+        trim:true
     },
     completed:{ 
         type:Boolean,
-        require: true
+        default: false
     },
     date:{
-        type:String
+        type:Date,
+        default: Date.now()
     }
 })
 
-const user = new User({
-   name: 'VHS',
-   email: 'V@'
+// const user = new User({
+//    name: '  Vhs  ',
+//    email: 'MYEMAIL@mail.com',
+//    password: 'Pa123AA'
    
-})
-user.save().then((result)=>{
-    console.log(result)
-    process.exit()
-}).catch((error)=>{
-    console.log(error)
-    process.exit()
-})
-
-// const newTask = new Task({
-//     description: 'Make a cake',
-//     completed: false,
-//     date: Date.now()
 // })
-
-
-// newTask.save().then((result)=>{
+// user.save().then((result)=>{
 //     console.log(result)
 //     process.exit()
 // }).catch((error)=>{
 //     console.log(error)
 //     process.exit()
 // })
+
+const newTask = new Task({
+    description: '              Make a cake             ',
+})
+
+
+newTask.save().then((result)=>{
+    console.log(result)
+    process.exit()
+}).catch((error)=>{
+    console.log(error)
+    process.exit()
+})
