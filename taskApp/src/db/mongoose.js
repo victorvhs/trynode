@@ -59,7 +59,7 @@ const Task = mongoose.model('Task',{
     },
     date:{
         type:Date,
-        default: Date.now()
+        default: Date.now
     }
 })
 
@@ -78,7 +78,7 @@ const Task = mongoose.model('Task',{
 // })
 
 const newTask = new Task({
-    description: '              Make a cake             ',
+    description: 'clean house'
 })
 
 
