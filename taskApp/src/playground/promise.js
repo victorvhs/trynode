@@ -2,7 +2,7 @@ require('../db/mongoose')
 const Task = require('../models/task')
 
 const deleteTaskAndCount = async (_id) => {
-    const deleteTask = await Task.findByIdAndDelete(_id)
+    await Task.findByIdAndDelete(_id)
     const count = await Task.countDocuments({completed:false})
     return count
 }
