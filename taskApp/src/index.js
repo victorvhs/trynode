@@ -44,9 +44,7 @@ app.patch('/users/:id', async (req,res)=>{
     const allowedUpdates = ['name','email','password','age']
     const isValidOperation = updates.every((update)=> allowedUpdates.includes(update))
 
-    if (!isValidOperation){
-        return res.status(400).send({'error':'Invalid Updates'})
-    }
+    if (!isValidOperation)return res.status(400).send({'error':'Invalid Updates'})
 
     try {
         const user = await User.findByIdAndUpdate(req.params.id,req.body,
@@ -58,11 +56,34 @@ app.patch('/users/:id', async (req,res)=>{
     }
 })
 
+app.delete('/users/:id', async (req,res)=>{
+    try {
+        const user = await User.findByIdAndDelete(req.params.id)
+        if(!user) return res.status(404).send()
+        res.send(user)
+    } catch (e) {
+        res.status(500).send()        
+    }
+})
+
+app.delete('/tasks/:id', async (req,res)=>{
+    console.log("aqui")
+    try {
+        
+        const tasks = await Task.findByIdAndDelete(req.params.id)
+        if(!tasks) return res.status(404).send()
+        res.send(tasks)
+    } catch (e) {
+        res.status(500).send()        
+    }
+})
 app.patch('/tasks/:id', async (req,res) =>{
     const updates = Object.keys(req.body)
     const allowedUpdates = ['completed','description']
     const isValidOperation = updates.every((update) =>allowedUpdates.includes(update))
+    
     if(!isValidOperation) return res.status(400).send({'error':'Invalid Updates'})
+    
     try {
         const task = await Task.findByIdAndUpdate(req.params.id,req.body,
             {new:true, runValidators:true})
