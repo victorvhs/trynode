@@ -4,9 +4,10 @@ const auth = require('../middleware/auth')
 const router = new express.Router()
 
 
-router.delete('/tasks/:id', async (req,res)=>{
+router.delete('/tasks/:id',auth, async (req,res)=>{
     try {
-        const tasks = await Task.findByIdAndDelete(req.params.id)
+        const tasks = await Task.findOneAndDelete({_id:req.params.id, owner:req.user._id})
+        
         if(!tasks) return res.status(404).send()
         res.send(tasks)
     } catch (e) {
@@ -14,7 +15,7 @@ router.delete('/tasks/:id', async (req,res)=>{
     }
 })
 
-router.patch('/tasks/:id', async (req,res) =>{
+router.patch('/tasks/:id', auth , async (req,res) =>{
     const updates = Object.keys(req.body)
     const allowedUpdates = ['completed','description']
     const isValidOperation = updates.every((update) =>allowedUpdates.includes(update))
@@ -22,11 +23,12 @@ router.patch('/tasks/:id', async (req,res) =>{
     if(!isValidOperation) return res.status(400).send({'error':'Invalid Updates'})
     
     try {
-        const task = await Task.findById(req.params.id)
+        const task = await Task.findOne({_id:req.params.id,owner:req.user._id})
+        //const task = await Task.findById(req.params.id)
+        if(!task) return res.status(404).send()
         updates.forEach((update) => task[update] = req.body[update])
         task.save()
         //const task = await Task.findByIdAndUpdate(req.params.id,req.body,{new:true, runValidators:true})
-        if(!task) return res.status(404).send()
         res.send(task)
     } catch (e) {
         console.log("e"+e)
